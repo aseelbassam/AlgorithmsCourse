@@ -1,0 +1,43 @@
+#include <iostream>
+using namespace std;
+#include "time.h"
+int factorial1(int n)
+{ int fact = 1;
+ for (int i = 1; i <= n; i++)
+ {fact *= i;}
+ return fact;}
+int factorial2(int n) 
+{ if (n == 0) 
+ return 1; 
+ return n * factorial2(n-1); } 
+int main()
+{ int n;
+ cout << "Enter an integer: ";
+ cin >> n;
+char ch1[100];
+ ch1[0] = '1';
+ while (ch1[0] != '4')
+ {
+ cout << "chose one of the opstion: " << endl;
+ cout << "1.iterative function " << endl;
+ cout << "2. recursive function " << endl;
+ cout << "3. renter the n " << endl;
+ cout << "4.exit" << endl;
+ cin >> ch1;
+ if (ch1[0] == '1')
+{ clock_t begin = clock();
+ factorial1(n);
+ clock_t end = clock();
+ cout << "Factorial of " << n << " is: " << factorial1(n) << endl;
+ cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+ }
+if (ch1[0] == '2')
+{ clock_t begin = clock();
+ factorial2(n);
+ clock_t end = clock();
+ cout << "Factorial of " << n << " is: " << factorial2(n) << endl;
+ cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+ }
+if (ch1[0] == '3'){
+ return main();}
+}}
