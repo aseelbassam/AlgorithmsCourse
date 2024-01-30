@@ -1,0 +1,216 @@
+#include <iostream>
+#include "time.h"
+#include "stdlib.h"
+using namespace std;
+template<typename v>
+int partition(v* arr, int s, int f) {
+    int p = arr[s];
+    int counter = 0;
+    for (int i = s + 1; i <= f; i++) {
+        if (arr[i] <= p)
+            counter++;
+    }
+    int p1 = s + counter;
+    swap(arr[p1], arr[s]);
+    int i = s;
+    int j = f;
+    while (i < p1 && j > p1) {
+        while (arr[i] <= p) {
+            i++;
+        }
+        while (arr[j] > p) {
+            j--;
+        }
+        if (i < p1 && j > p1) {
+            swap(arr[i++], arr[j--]);
+        }
+    }
+    return p1;
+}
+template<typename v>
+void quickSort(v* arr, int s, int f) {
+    if (s >= f) {
+        return;
+    }
+    int p = partition(arr, s, f);
+    quickSort(arr, s, p - 1);
+    quickSort(arr, p + 1, f);
+}
+template<typename x>
+void merge(x* arr, int x1, int x2, int x3) {
+    int z = x2 - x1 + 1;
+    int g = x3 - x2;
+    int* p = new int[z];
+    int* p1 = new int[z];
+    int m = 0;
+    while (m < z)
+    {
+        p[m] = arr[x1 + m];
+        m++;
+    }
+    int n = 0;
+    while (n < g) {
+        p1[n] = arr[x2 + 1 + n];
+        n++;
+    }
+    int a = 0;
+    int b = 0;
+    int c = x1;
+    for (; a < z && b < g; c++) {
+        if (p[a] <= p1[b]) {
+            arr[c] = p[a];
+            a++;
+        }
+        else {
+            arr[c] = p1[b];
+            b++;
+        }
+    }
+    for (; a < z; a++, c++) {
+        arr[c] = p[a];
+    }
+    for (; b < g; b++, c++) {
+        arr[c] = p1[b];
+    }
+}
+template<typename x>
+void mergeSort(x* arr, int x1, int x2) {
+    if (x1 >= x2) {
+        return;
+    }
+    int x3 = x1 + (x2 - x1) / 2;
+    mergeSort(arr, x1, x3);
+    mergeSort(arr, x3 + 1, x2);
+    merge(arr, x1, x3, x2);
+}
+
+template <class t>
+void insertionsort(t a[], int size)
+{
+    t  key;
+    int i, j;
+    for (i = 1; i < size; i++)
+    {
+        key = a[i];
+        j = i - 1;
+        while (j >= 0 && a[j] > key)
+        {
+            a[j + 1] = a[j];
+            j = j - 1;
+        }
+        a[j + 1] = key;
+    }
+}
+template <class t>
+void Selections(t a[], int size)
+{
+
+    for (int i = 1; i < size; i++)
+        for (int j = i; j < size; j++)
+            if (a[i] > a[j])
+            {
+                t temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+
+
+}
+template <typename T>
+void bubbleSort(T arr[], int n) {
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                T temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+int main()
+{
+    cout << "Enter array size\n";
+    int size;
+    cin >> size;
+
+    int* xin = new int [size];
+ 
+   
+        for (int i = 0; i < size; i++)
+        {
+            int x = rand() % 100 + 1;
+            xin[i] = x;
+        }
+
+
+
+
+    char  ch1[100];
+    ch1[0] = '1';
+    while (ch1[0] != '7')
+    {
+        cout << "chose one of the opstion: " << endl;
+        cout << "1.Selection sort " << endl;
+        cout << "2.Insertion Sort" << endl;
+        cout << "3.Merge Sort" << endl;
+        cout << "4.Quick Sort" << endl;
+        cout <<"5.Bubble Sort"<<endl;
+        cout << "6.renter the size" << endl;
+        cout << "7.exit" << endl;
+        cin >> ch1;
+        if (ch1[0] == '1')
+        {
+                clock_t begin = clock();
+                Selections(xin, size);
+                clock_t end = clock();
+                cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+            
+        }
+        if (ch1[0] == '2')
+        {
+           
+                clock_t begin = clock();
+                insertionsort(xin, size);
+                clock_t end = clock();
+                cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+        }
+       
+        if (ch1[0] == '3')
+        {
+            
+                clock_t begin = clock();
+                mergeSort(xin, 0, size - 1);
+                clock_t end = clock();
+                cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+            
+          
+        }
+       
+        if (ch1[0] == '4')
+        {
+            
+                clock_t begin = clock();
+                quickSort(xin, 0, size - 1);
+                clock_t end = clock();
+                cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+            
+
+        }
+         if (ch1[0] == '5')
+        {
+            
+                clock_t begin = clock();
+                bubbleSort(xin, size - 1);
+                clock_t end = clock();
+                cout << (float)(end - begin) / CLOCKS_PER_SEC; cout << endl;
+            
+          
+        }
+     
+        if (ch1[0] == '6')
+            return main();
+
+    }
+
+}
